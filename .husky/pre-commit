@@ -1,1 +1,3 @@
-yarn eslint
+yarn eslint 'src/**' --fix
+yarn prettier --check --write --fix'
+yarn test:staged
