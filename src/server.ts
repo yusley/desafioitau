@@ -1,15 +1,15 @@
-import express from 'express'
-import router from './routers';
-import { json } from 'express';
+import express from "express"
+import router from "./routers"
+import { json } from "express"
 
-const app = express();
+const app = express()
 
-const port = '3000'
+const port = "3000"
 
-app.use(json());
+app.use(json())
 
-app.use(router);
+app.use(router)
 
-app.listen(port,() => {
-    console.log('Server runing in port ', port)
+app.listen(port, () => {
+  console.log("Server runing in port ", port)
 })
