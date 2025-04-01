@@ -1,4 +1,4 @@
-import ListTransactionService from "./ListTransactionsService"
+import ListTransactionService from "../ListTransactionsService"
 
 it("should sum", () => {
   const listTransactionService = new ListTransactionService()
