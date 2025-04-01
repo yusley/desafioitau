@@ -1,10 +1,13 @@
-import { Router, Request,Response,NextFunction } from "express";
+import { Router, Request, Response } from "express"
 
 const router = Router()
 
-
-router.get('/', (req:Request ,res:Response, next: NextFunction) => {
-    res.status(200)
+router.get("/", (req: Request, res: Response) => {
+  res.status(200)
 })
 
-export default router;
+router.get("/trasaction", (req: Request, res: Response) => {
+  res.status(200)
+})
+
+export default router
