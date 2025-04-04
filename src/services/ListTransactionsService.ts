@@ -1,7 +1,14 @@
+import prismaClient from "../prisma"
+
 class ListTransactionService {
   async execute() {
-    return "transacao"
+    try {
+      const listTransactions = await prismaClient.transacao.findMany()
+      return listTransactions
+    } catch (error) {
+      return error
+    }
   }
 }
 
-export default ListTransactionService
+export { ListTransactionService }
