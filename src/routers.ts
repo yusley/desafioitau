@@ -1,26 +1,19 @@
-import { CreateTransactionService } from "../src/services/CreateTransactionService"
 import { CreateTransactionController } from "../src/controllers/transacoes/CreateTransactionController"
 import { ListTransactionsController } from "../src/controllers/transacoes/ListTransactionsController"
-import { ListTransactionService } from "../src/services/ListTransactionsService"
-
+import { createTransactionFactory } from "../src/factories/CreateTransactionFactory"
 import { Router, Request, Response, NextFunction } from "express"
+import { listTransactionsFactory } from "../src/factories/ListTransactionsFactory"
+
 class Routers {
   public router: Router
-  private listTransactionsController: ListTransactionsController
+  private listTransactionService : ListTransactionsController  
   private createTransactionController: CreateTransactionController
+
 
   constructor() {
     this.router = Router()
-
-    const listTransactionsService = new ListTransactionService()
-    const createTransactionService = new CreateTransactionService()
-
-    this.listTransactionsController = new ListTransactionsController(
-      listTransactionsService,
-    )
-    this.createTransactionController = new CreateTransactionController(
-      createTransactionService,
-    )
+    this.listTransactionService = listTransactionsFactory()
+    this.createTransactionController = createTransactionFactory()
 
     this.initializedRouters()
   }
@@ -33,7 +26,7 @@ class Routers {
     this.router.get(
       "/transacao",
       (req: Request, res: Response, next: NextFunction) => {
-        return this.listTransactionsController.handle(req, res, next)
+        return this.listTransactionService.handle(req, res, next)
       },
     )
 

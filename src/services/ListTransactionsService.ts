@@ -1,13 +1,20 @@
 import prismaClient from "../prisma"
 
-class ListTransactionService {
-  async execute() {
-    try {
-      const listTransactions = await prismaClient.transacao.findMany()
-      return listTransactions
-    } catch (error) {
-      return error
-    }
+interface InterfaceTransactions {
+  id?: string
+  valor: number
+  dataHora?: Date | null
+}
+
+export abstract class InterfaceListTransactionService{
+  abstract execute():  Promise<InterfaceTransactions[]>;
+}
+
+class ListTransactionService implements InterfaceListTransactionService {
+  async execute(): Promise<InterfaceTransactions[]> {
+    const listTransactions = await prismaClient.transacao.findMany()
+    return listTransactions
+
   }
 }
 

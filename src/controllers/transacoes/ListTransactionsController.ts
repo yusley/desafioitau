@@ -1,10 +1,11 @@
 import { NextFunction, Request, Response } from "express"
-import { ListTransactionService } from "../../services/ListTransactionsService"
+import { InterfaceListTransactionService } from "services/ListTransactionsService"
 
 class ListTransactionsController {
-  private listTransactionsService: ListTransactionService
 
-  constructor(listTransactionsService: ListTransactionService) {
+  private listTransactionsService : InterfaceListTransactionService
+
+  constructor(listTransactionsService:  InterfaceListTransactionService){
     this.listTransactionsService = listTransactionsService
   }
 
