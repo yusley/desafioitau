@@ -1,4 +1,4 @@
-import prismaClient from "../prisma"
+import { InterfacePrismaDataBaseClient } from '../prisma'
 
 interface InterfaceTransactions {
   id?: string
@@ -6,15 +6,16 @@ interface InterfaceTransactions {
   dataHora?: Date | null
 }
 
-export abstract class InterfaceListTransactionService{
-  abstract execute():  Promise<InterfaceTransactions[]>;
+export interface InterfaceListTransactionService {
+  execute(): Promise<InterfaceTransactions[]>
 }
 
 class ListTransactionService implements InterfaceListTransactionService {
-  async execute(): Promise<InterfaceTransactions[]> {
-    const listTransactions = await prismaClient.transacao.findMany()
-    return listTransactions
+  constructor(private prisma: InterfacePrismaDataBaseClient) {}
 
+  async execute(): Promise<InterfaceTransactions[]> {
+    const client = await this.prisma.getClient()
+    return client.transacao.findMany()
   }
 }
 

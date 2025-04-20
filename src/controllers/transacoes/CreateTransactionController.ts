@@ -1,14 +1,17 @@
-import { Request, Response } from "express"
-import { CreateTransactionService } from "../../services/CreateTransactionService"
-import { ValidTransaction } from "../../utils/validTransaction"
+import { Request, Response } from 'express'
+import { InterfaceCreateTransactionService } from '../../services/CreateTransactionService'
+import { ValidTransaction } from '../../utils/validTransaction'
 
 class CreateTransactionController {
-  private createTransactionService: CreateTransactionService
+  private createTransactionService: InterfaceCreateTransactionService
   private validTransaction: ValidTransaction
 
-  constructor(createTransactionService: CreateTransactionService) {
+  constructor(
+    createTransactionService: InterfaceCreateTransactionService,
+    validTransaction: ValidTransaction
+  ) {
     this.createTransactionService = createTransactionService
-    this.validTransaction = new ValidTransaction()
+    this.validTransaction = validTransaction
   }
 
   async handle(req: Request, res: Response) {
@@ -18,7 +21,7 @@ class CreateTransactionController {
       await this.createTransactionService.execute(transacao)
       res.status(201).send()
     } catch {
-      res.status(400).send()
+      res.status(422).send()
     }
   }
 }

@@ -1,5 +1,15 @@
-import { PrismaClient } from "@prisma/client"
+import { PrismaClient } from '@prisma/client'
 
-const prismaClient = new PrismaClient()
+export interface InterfacePrismaDataBaseClient {
+  getClient(): Promise<PrismaClient>
+}
 
-export default prismaClient
+class PrismaDataBaseClient implements InterfacePrismaDataBaseClient {
+  private prismaClient = new PrismaClient()
+
+  async getClient(): Promise<PrismaClient> {
+    return this.prismaClient
+  }
+}
+
+export { PrismaDataBaseClient }

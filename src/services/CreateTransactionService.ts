@@ -1,21 +1,18 @@
-import prismaClient from "../prisma"
+import { InterfacePrismaDataBaseClient } from '../prisma'
+import { InterfaceTransactions } from 'interfaces/InterfaceTransactions'
 
-export interface TransacaoInterface {
-  id?: string
-  valor: number
-  dataHora: Date
+export interface InterfaceCreateTransactionService {
+  execute(transacao: InterfaceTransactions): Promise<InterfaceTransactions>
 }
 
-class CreateTransactionService {
-  async execute(transacao: TransacaoInterface) {
-    try {
-      const createdTrasaction = await prismaClient.transacao.create({
-        data: transacao,
-      })
-      return createdTrasaction
-    } catch (error) {
-      throw new Error(`${error}`)
-    }
+class CreateTransactionService implements InterfaceCreateTransactionService {
+  constructor(private prisma: InterfacePrismaDataBaseClient) {}
+
+  async execute(transacao: InterfaceTransactions): Promise<InterfaceTransactions> {
+    const client = await this.prisma.getClient()
+    return client.transacao.create({
+      data: transacao,
+    })
   }
 }
 
