@@ -17,6 +17,7 @@ class CreateTransactionController {
   async handle(req: Request, res: Response) {
     try {
       const transacao = req.body
+      console.log(transacao)
       await this.validTransaction.execute(transacao)
       await this.createTransactionService.execute(transacao)
       res.status(201).send()
